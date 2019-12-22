@@ -15,23 +15,12 @@ namespace DataAccessLayer
         {
             using (SalesDBContext db = new SalesDBContext())
             {
-
-                /*Customer cust = db.Customers.FirstOrDefault();
-                 Product pro = db.Products.FirstOrDefault();
-                 Manager man = db.Managers.FirstOrDefault();*/
-
-                // db.Sales.Add(new Sale { Manager = man, Customer = cust, Product = pro, dateTime = DateTime.Now, Sum = 899f });
-                //db.SaveChanges();
-
-                var u = db.Managers.Include(man=>man.Sales).FirstOrDefault();
-
-                //  var u = db.Sales.Include(sale=>sale.Manager).ToList();
-
-
-
+                var u = db.Managers.ToArray().LastOrDefault();
+                Console.WriteLine(db.Managers.ToArray().LastOrDefault().SecondName);
 
                 Console.WriteLine("Success");
             }
+
             Console.ReadKey();
         }
     }

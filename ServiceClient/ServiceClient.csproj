@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E94E9DF1-3D51-4D62-B43F-445CEF749E15}</ProjectGuid>
+    <ProjectGuid>{3238DF7A-C4F1-4491-8855-47183C25C4EE}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>BusinessLayer</RootNamespace>
-    <AssemblyName>BusinessLayer</AssemblyName>
+    <RootNamespace>ServiceClient</RootNamespace>
+    <AssemblyName>ServiceClient</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,15 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Parsers\IParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Parsers\Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

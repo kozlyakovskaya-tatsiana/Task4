@@ -15,7 +15,7 @@ namespace DataAccessLayer.EntityModels
         public string FullName { get; set; }
 
 
-        public virtual IEnumerable<Sale> Sales { get; set; }
+        public virtual ICollection<Sale> Sales { get; set; }
 
         public Customer()
         {
