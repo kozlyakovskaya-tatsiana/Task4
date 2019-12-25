@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialMigration : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -13,24 +13,6 @@
                     {
                         Id = c.Int(nullable: false, identity: true),
                         FullName = c.String(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id);
-            
-            CreateTable(
-                "dbo.Managers",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        SecondName = c.String(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id);
-            
-            CreateTable(
-                "dbo.Products",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -53,6 +35,25 @@
                 .Index(t => t.CustomerId)
                 .Index(t => t.ProductId);
             
+            CreateTable(
+                "dbo.Managers",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        SecondName = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Products",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false),
+                        Cost = c.Double(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
         }
         
         public override void Down()
@@ -63,9 +64,9 @@
             DropIndex("dbo.Sales", new[] { "ProductId" });
             DropIndex("dbo.Sales", new[] { "CustomerId" });
             DropIndex("dbo.Sales", new[] { "ManagerId" });
-            DropTable("dbo.Sales");
             DropTable("dbo.Products");
             DropTable("dbo.Managers");
+            DropTable("dbo.Sales");
             DropTable("dbo.Customers");
         }
     }

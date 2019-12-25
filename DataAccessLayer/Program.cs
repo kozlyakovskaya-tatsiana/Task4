@@ -6,6 +6,7 @@ using System.Linq;
 using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccessLayer.Repositories.Models;
 
 namespace DataAccessLayer
 {
@@ -13,13 +14,20 @@ namespace DataAccessLayer
     {
         static void Main(string[] args)
         {
+           /* using (SalesDBContext db = new SalesDBContext())
+            {
+                db.Products.Add(new Product("Philips", 237.85));
+                db.SaveChanges();
+            }
+
             using (SalesDBContext db = new SalesDBContext())
             {
-                var u = db.Managers.ToArray().LastOrDefault();
-                Console.WriteLine(db.Managers.ToArray().LastOrDefault().SecondName);
-
-                Console.WriteLine("Success");
+                db.Products.Add(new Product("Philips", 237.85));
+                db.SaveChanges();
             }
+
+            Console.WriteLine("Success");*/
+            
 
             Console.ReadKey();
         }

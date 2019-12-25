@@ -11,61 +11,49 @@ namespace DataAccessLayer.Repositories.Models
 {
     public class CustomersRepository : IRepository<Customer>, IDisposable
     {
-        private SalesDBContext _context;
+        private SalesDBContext db;
 
         public CustomersRepository(SalesDBContext context)
         {
-            _context = context;
+            db = context;
         }
 
         public void Create(Customer item)
         {
-            _context.Customers.Add(item);
+            db.Customers.Add(item);
         }
 
-        public IEnumerable<Customer> Get(Func<Customer, bool> predicate)
+        public IQueryable<Customer> GetAll()
         {
-            return _context.Customers.Where(predicate).ToList();
+            return db.Customers;
         }
 
-        public IEnumerable<Customer> GetAll()
+        public Customer Get(int id)
         {
-            return _context.Customers.ToList();
+            return db.Customers.Find(id);
         }
 
-        public void Remove(Customer item)
+        public void Remove(int id)
         {
-            if (item != null)
-                _context.Customers.Remove(item);
-        }
+            var customer = db.Customers.Find(id);
 
-        public void Save()
-        {
-            _context.SaveChanges();
+            if (customer != null)
+                db.Customers.Remove(customer);
         }
 
         public void Update(Customer item)
         {
-            _context.Entry(item).State = EntityState.Modified;
+            db.Entry(item).State = EntityState.Modified;
         }
 
-        private bool disposed = false;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposed)
-            {
-                if (disposing)
-                {
-                    _context.Dispose();
-                }
-            }
-            disposed = true;
-        }
+        /*  public void Save()
+          {
+              db.SaveChanges();
+          }*/
 
         public void Dispose()
         {
-            Dispose(true);
+            db.Dispose();
             GC.SuppressFinalize(this);
         }
     }

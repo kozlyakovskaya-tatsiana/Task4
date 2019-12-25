@@ -14,12 +14,19 @@ namespace DataAccessLayer.EntityModels
         [Required]
         public string Name { get; set; }
 
+        public double Cost { get; set; }
 
         public virtual ICollection<Sale> Sales { get; set; }
 
         public Product()
         {
             Sales = new List<Sale>();
+        }
+
+        public Product (string name, double cost):this()
+        {
+            Name = name;
+            Cost = cost;
         }
     }
 }

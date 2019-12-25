@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLayer.Parsers
+namespace BusinessLayer.WorkWithFiles
 {
-    public interface IParser<T>
+    public class CsvFileWatcher
     {
-        IEnumerable<T> ParseFile(string fileName);
+        public FileSystemWatcher watcher;
     }
 }

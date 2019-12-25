@@ -14,12 +14,16 @@ namespace DataAccessLayer.EntityModels
         [Required]
         public string SecondName { get; set; }
 
-
         public virtual ICollection<Sale> Sales { get; set; }
 
         public Manager()
         {
             Sales = new List<Sale>();
+        }
+
+        public Manager(string secondName):this()
+        {
+            SecondName = secondName;
         }
     }
 }

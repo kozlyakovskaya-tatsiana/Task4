@@ -11,61 +11,48 @@ namespace DataAccessLayer.Repositories.Models
 {
     public class ProductsRepository : IRepository<Product>, IDisposable
     {
-        private SalesDBContext _context;
+        private SalesDBContext _db;
 
         public ProductsRepository(SalesDBContext context)
         {
-            _context = context;
+            _db = context;
         }
 
         public void Create(Product item)
         {
-            _context.Products.Add(item);
+            _db.Products.Add(item);
         }
 
-        public IEnumerable<Product> Get(Func<Product, bool> predicate)
+        public IQueryable<Product> GetAll()
         {
-            return _context.Products.Where(predicate).ToList();
+            return _db.Products;
         }
 
-        public IEnumerable<Product> GetAll()
+        public Product Get(int id)
         {
-            return _context.Products.ToList();
+            return _db.Products.Find(id);
         }
 
-        public void Remove(Product item)
+        public void Remove(int id)
         {
-            if (item != null)
-                _context.Products.Remove(item);
-        }
-
-        public void Save()
-        {
-            _context.SaveChanges();
+            var product = _db.Products.Find(id);
+            if (product != null)
+                _db.Products.Remove(product);
         }
 
         public void Update(Product item)
         {
-            _context.Entry(item).State = EntityState.Modified;
+            _db.Entry(item).State = EntityState.Modified;
         }
 
-        private bool disposed = false;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposed)
-            {
-                if (disposing)
-                {
-                    _context.Dispose();
-                }
-            }
-            disposed = true;
-        }
+        /* public void Save()
+         {
+             _db.SaveChanges();
+         }*/
 
         public void Dispose()
         {
-            Dispose(true);
+            _db.Dispose();
             GC.SuppressFinalize(this);
         }
     }

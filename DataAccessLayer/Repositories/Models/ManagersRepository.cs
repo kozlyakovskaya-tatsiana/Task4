@@ -11,59 +11,49 @@ namespace DataAccessLayer.Repositories.Models
 {
     public class ManagersRepository : IRepository<Manager>, IDisposable
     {
-        private SalesDBContext _context;
+        private SalesDBContext db;
 
         public ManagersRepository(SalesDBContext context)
         {
-            _context = context;
+            db = context;
         }
+
         public void Create(Manager item)
         {
-            _context.Managers.Add(item);
+            db.Managers.Add(item);
         }
 
-        public IEnumerable<Manager> Get(Func<Manager, bool> predicate)
+        public IQueryable<Manager> GetAll()
         {
-            return _context.Managers.Where(predicate).ToList();
+            return db.Managers;
         }
 
-        public IEnumerable<Manager> GetAll()
+        public Manager Get(int id)
         {
-            return _context.Managers.ToList();
+            return db.Managers.Find(id);
         }
 
-        public void Remove(Manager item)
+        public void Remove(int id)
         {
-            if (item != null) _context.Managers.Remove(item);
-        }
+            var manager = db.Managers.Find(id);
 
-        public void Save()
-        {
-            _context.SaveChanges();
+            if (manager != null)
+                db.Managers.Remove(manager);
         }
 
         public void Update(Manager item)
         {
-            _context.Entry(item).State = EntityState.Modified;
+            db.Entry(item).State = EntityState.Modified;
         }
 
-        private bool disposed = false;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposed)
-            {
-                if (disposing)
-                {
-                    _context.Dispose();
-                }
-            }
-            disposed = true;
-        }
+        /* public void Save()
+         {
+             db.SaveChanges();
+         }*/
 
         public void Dispose()
         {
-            Dispose(true);
+            db.Dispose();
             GC.SuppressFinalize(this);
         }
     }

@@ -11,61 +11,49 @@ namespace DataAccessLayer.Repositories.Models
 {
     public class SalesRepository : IRepository<Sale>, IDisposable
     {
-        private SalesDBContext _context;
+        private SalesDBContext _db;
 
         public SalesRepository(SalesDBContext context)
         {
-            _context = context;
+            _db = context;
         }
 
         public void Create(Sale item)
         {
-            _context.Sales.Add(item);
+            _db.Sales.Add(item);
         }
 
-        public IEnumerable<Sale> Get(Func<Sale, bool> predicate)
+        public IQueryable<Sale> GetAll()
         {
-            return _context.Sales.Where(predicate).ToList();
+            return _db.Sales;
         }
 
-        public IEnumerable<Sale> GetAll()
+        public Sale Get(int id)
         {
-            return _context.Sales.ToList();
+            return _db.Sales.Find(id);
         }
 
-        public void Remove(Sale item)
+        public void Remove(int id)
         {
-            if (item != null)
-                _context.Sales.Remove(item);
-        }
+            var sale = _db.Sales.Find(id);
 
-        public void Save()
-        {
-            _context.SaveChanges();
+            if (sale != null)
+                _db.Sales.Remove(sale);
         }
 
         public void Update(Sale item)
         {
-            _context.Entry(item).State = EntityState.Modified;
+            _db.Entry(item).State = EntityState.Modified;
         }
 
-        private bool disposed = false;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposed)
-            {
-                if (disposing)
-                {
-                    _context.Dispose();
-                }
-            }
-            disposed = true;
-        }
+        /* public void Save()
+         {
+             _db.SaveChanges();
+         }*/
 
         public void Dispose()
         {
-            Dispose(true);
+            _db.Dispose();
             GC.SuppressFinalize(this);
         }
     }

@@ -10,15 +10,13 @@ namespace DataAccessLayer.Repositories
     {
         void Create(TEntity item);
 
-        void Remove(TEntity item);
+        IQueryable<TEntity> GetAll();
+
+        TEntity Get(int id);
 
         void Update(TEntity item);
 
-        IEnumerable<TEntity> GetAll();
-
-        IEnumerable<TEntity> Get(Func<TEntity, bool> predicate);
-
-        void Save();
+        void Remove(int id);
 
     }
 }

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleClient", "ConsoleCli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceClient", "ServiceClient\ServiceClient.csproj", "{3238DF7A-C4F1-4491-8855-47183C25C4EE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileWatcherService", "FileWatcherService\FileWatcherService.csproj", "{ADFE10BF-99DD-455E-B13E-DD5D2452BF77}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{3238DF7A-C4F1-4491-8855-47183C25C4EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3238DF7A-C4F1-4491-8855-47183C25C4EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3238DF7A-C4F1-4491-8855-47183C25C4EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADFE10BF-99DD-455E-B13E-DD5D2452BF77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADFE10BF-99DD-455E-B13E-DD5D2452BF77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADFE10BF-99DD-455E-B13E-DD5D2452BF77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADFE10BF-99DD-455E-B13E-DD5D2452BF77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

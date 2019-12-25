@@ -58,9 +58,9 @@
     <Compile Include="EntityModels\Manager.cs" />
     <Compile Include="EntityModels\Product.cs" />
     <Compile Include="EntityModels\Sale.cs" />
-    <Compile Include="Migrations\201912212044088_InitialMigration.cs" />
-    <Compile Include="Migrations\201912212044088_InitialMigration.designer.cs">
-      <DependentUpon>201912212044088_InitialMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201912251447132_Initial.cs" />
+    <Compile Include="Migrations\201912251447132_Initial.designer.cs">
+      <DependentUpon>201912251447132_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
@@ -70,17 +70,17 @@
     <Compile Include="Repositories\Models\ManagersRepository.cs" />
     <Compile Include="Repositories\Models\ProductsRepository.cs" />
     <Compile Include="Repositories\Models\SalesRepository.cs" />
+    <Compile Include="Repositories\Models\UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201912212044088_InitialMigration.resx">
-      <DependentUpon>201912212044088_InitialMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201912251447132_Initial.resx">
+      <DependentUpon>201912251447132_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
