@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories.Models
 {
-    public class ManagersRepository : IRepository<Manager>, IDisposable
+    public class ManagersRepository : IRepository<Manager>,IExistable<Manager>, IDisposable
     {
         private SalesDBContext db;
 
@@ -46,15 +46,31 @@ namespace DataAccessLayer.Repositories.Models
             db.Entry(item).State = EntityState.Modified;
         }
 
+        public bool Exists(Manager item, out Manager resultItem)
+        {
+            var managers = db.Managers.Where(manager => manager.SecondName.Equals(item.SecondName)).ToArray();
+            
+            if (managers.Count()!=0)
+            {
+                resultItem = managers.FirstOrDefault();
+                return true;
+            }
+
+            resultItem = item;
+            return false;
+        }
+
         /* public void Save()
          {
              db.SaveChanges();
          }*/
 
-        public void Dispose()
+            public void Dispose()
         {
             db.Dispose();
             GC.SuppressFinalize(this);
         }
+
+        
     }
 }

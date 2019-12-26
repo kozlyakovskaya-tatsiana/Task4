@@ -30,17 +30,19 @@ namespace BusinessLayer.WorkWithFiles
 
                     var product = new Product(line.ProductName, line.ProductSum);
 
-                    unitOfWork.ManagersRepository.Create(manager);
+                    unitOfWork.ManagersRepository.Exists(manager, out var resultManager);
 
-                    unitOfWork.ProductsRepository.Create(product);
+                    unitOfWork.ProductsRepository.Exists(product, out var resultProduct);
 
-                    unitOfWork.CustomersRepository.Create(customer);
-
-                    unitOfWork.SalesRepository.Create(new Sale(manager, customer, product, date, line.ProductSum));
+                    unitOfWork.CustomersRepository.Exists(customer, out var resultCustomer);
+                    
+                    unitOfWork.SalesRepository.Create(new Sale(resultManager, resultCustomer, resultProduct, date, line.ProductSum));
+                    
+                    unitOfWork.Save();
 
                 }
 
-                unitOfWork.Save();
+                
             }
         }
     }

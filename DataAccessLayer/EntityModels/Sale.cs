@@ -30,8 +30,15 @@ namespace DataAccessLayer.EntityModels
 
         public virtual Product Product { get; set; }
 
+        public Sale()
+        {
+
+        }
+
         public Sale (Manager manager, Customer customer, Product product, DateTime dateTime, double sum)
         {
+            Manager = manager;
+
             Sum = sum;
 
             DateTime = dateTime;

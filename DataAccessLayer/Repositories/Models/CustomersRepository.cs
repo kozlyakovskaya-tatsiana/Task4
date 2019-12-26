@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories.Models
 {
-    public class CustomersRepository : IRepository<Customer>, IDisposable
+    public class CustomersRepository : IRepository<Customer>, IExistable<Customer>, IDisposable
     {
         private SalesDBContext db;
 
@@ -55,6 +55,20 @@ namespace DataAccessLayer.Repositories.Models
         {
             db.Dispose();
             GC.SuppressFinalize(this);
+        }
+
+        public bool Exists(Customer item, out Customer resultItem)
+        {
+            var customers = db.Customers.Where(customer=> customer.FullName.Equals(item.FullName)).ToArray();
+
+            if (customers.Count() != 0)
+            {
+                resultItem = customers.FirstOrDefault();
+                return true;
+            }
+
+            resultItem = item;
+            return false;
         }
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories.Models
 {
-    public class ProductsRepository : IRepository<Product>, IDisposable
+    public class ProductsRepository : IRepository<Product>, IExistable<Product>, IDisposable
     {
         private SalesDBContext _db;
 
@@ -54,6 +54,21 @@ namespace DataAccessLayer.Repositories.Models
         {
             _db.Dispose();
             GC.SuppressFinalize(this);
+        }
+
+        public bool Exists(Product item, out Product resultItem)
+        {
+
+            var products= _db.Products.Where(product => product.Name.Equals(item.Name) && product.Cost==item.Cost).ToArray();
+
+            if (products.Count() != 0)
+            {
+                resultItem = products.FirstOrDefault();
+                return true;
+            }
+
+            resultItem = item;
+            return false;
         }
     }
 }
