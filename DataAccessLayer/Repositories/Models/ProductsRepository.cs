@@ -59,7 +59,7 @@ namespace DataAccessLayer.Repositories.Models
         public bool Exists(Product item, out Product resultItem)
         {
 
-            var products= _db.Products.Where(product => product.Name.Equals(item.Name) && product.Cost==item.Cost).ToArray();
+            var products= _db.Products.Where(product => product.Name.Equals(item.Name) && product.Cost==item.Cost);
 
             if (products.Count() != 0)
             {

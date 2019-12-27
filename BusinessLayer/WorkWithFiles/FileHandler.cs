@@ -7,43 +7,48 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BusinessLayer.WorkWithFiles
 {
     public class FileHandler
     {
+        static object locker = new object();
         public void StartHandle(string fileName, IParser<CsvLine> parser)
         {
             var lines = parser.ParseFile(fileName);
-
-            using (var unitOfWork = new UnitOfWork())
+            lock (locker)
             {
-
-                foreach (var line in lines)
+                using (var unitOfWork = new UnitOfWork())
                 {
-                    var manager = new Manager(line.ManagerName);
 
-                    var date = line.DateTime;
+                    foreach (var line in lines)
+                    {
+                        var manager = new Manager(line.ManagerName);
 
-                    var customer = new Customer(line.CustomerName);
+                        var date = line.DateTime;
 
-                    var product = new Product(line.ProductName, line.ProductSum);
+                        var customer = new Customer(line.CustomerName);
 
-                    unitOfWork.ManagersRepository.Exists(manager, out var resultManager);
+                        var product = new Product(line.ProductName, line.ProductSum);
 
-                    unitOfWork.ProductsRepository.Exists(product, out var resultProduct);
+                        unitOfWork.ManagersRepository.Exists(manager, out var resultManager);
 
-                    unitOfWork.CustomersRepository.Exists(customer, out var resultCustomer);
-                    
-                    unitOfWork.SalesRepository.Create(new Sale(resultManager, resultCustomer, resultProduct, date, line.ProductSum));
-                    
-                    unitOfWork.Save();
+                        unitOfWork.ProductsRepository.Exists(product, out var resultProduct);
+
+                        unitOfWork.CustomersRepository.Exists(customer, out var resultCustomer);
+
+                        unitOfWork.SalesRepository.Create(new Sale(resultManager, resultCustomer, resultProduct, date, line.ProductSum));
+
+                        unitOfWork.Save();
+
+                    }
 
                 }
-
-                
+                Thread.Sleep(3000);
             }
+            Console.WriteLine(fileName + "was saved");
         }
     }
 }

@@ -9,48 +9,48 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories.Models
 {
-    public class ManagersRepository : IRepository<Manager>,IExistable<Manager>, IDisposable
+    public class ManagersRepository : IRepository<Manager>, IExistable<Manager>, IDisposable
     {
-        private SalesDBContext db;
+        private SalesDBContext _db;
 
         public ManagersRepository(SalesDBContext context)
         {
-            db = context;
+            _db = context;
         }
 
         public void Create(Manager item)
         {
-            db.Managers.Add(item);
+            _db.Managers.Add(item);
         }
 
         public IQueryable<Manager> GetAll()
         {
-            return db.Managers;
+            return _db.Managers;
         }
 
         public Manager Get(int id)
         {
-            return db.Managers.Find(id);
+            return _db.Managers.Find(id);
         }
 
         public void Remove(int id)
         {
-            var manager = db.Managers.Find(id);
+            var manager = _db.Managers.Find(id);
 
             if (manager != null)
-                db.Managers.Remove(manager);
+                _db.Managers.Remove(manager);
         }
 
         public void Update(Manager item)
         {
-            db.Entry(item).State = EntityState.Modified;
+            _db.Entry(item).State = EntityState.Modified;
         }
 
         public bool Exists(Manager item, out Manager resultItem)
         {
-            var managers = db.Managers.Where(manager => manager.SecondName.Equals(item.SecondName)).ToArray();
-            
-            if (managers.Count()!=0)
+            var managers = _db.Managers.Where(manager => manager.SecondName.Equals(item.SecondName));
+
+            if (managers.Count() != 0)
             {
                 resultItem = managers.FirstOrDefault();
                 return true;
@@ -65,12 +65,12 @@ namespace DataAccessLayer.Repositories.Models
              db.SaveChanges();
          }*/
 
-            public void Dispose()
+        public void Dispose()
         {
-            db.Dispose();
+            _db.Dispose();
             GC.SuppressFinalize(this);
         }
 
-        
+
     }
 }

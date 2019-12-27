@@ -27,8 +27,6 @@ namespace DataAccessLayer
             }
 
             Console.WriteLine("Success");*/
-            
-
             Console.ReadKey();
         }
     }

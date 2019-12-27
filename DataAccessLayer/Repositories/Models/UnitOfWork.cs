@@ -11,7 +11,7 @@ namespace DataAccessLayer.Repositories.Models
     {
         private SalesDBContext _db = new SalesDBContext();
 
-        public CustomersRepository _customersRepository;
+        private CustomersRepository _customersRepository;
 
         private ManagersRepository _managersRepository;
 

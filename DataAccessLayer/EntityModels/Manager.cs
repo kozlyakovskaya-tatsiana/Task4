@@ -26,14 +26,5 @@ namespace DataAccessLayer.EntityModels
             SecondName = secondName;
         }
 
-        public override bool Equals(object obj)
-        {
-            return obj is Manager && ((Manager)obj).SecondName.Equals(this.SecondName);
-        }
-
-        public override int GetHashCode()
-        {
-            return this.SecondName.GetHashCode();
-        }
     }
 }
