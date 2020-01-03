@@ -1,5 +1,4 @@
-﻿
-using BusinessLayer.WorkWithFiles;
+﻿using BusinessLayer.WorkWithFiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,24 +15,11 @@ namespace ConsoleClient
         {
             var watcher = new CsvFileWatcher(ConfigurationManager.AppSettings.Get("pathToFilesDirectory"));
 
-            var watcherTask = Task.Run(() =>
-            {
-                watcher.StartWatch();
-                while (true)
-                {
-                    Console.WriteLine("watcherTask");
-                    Thread.Sleep(1000);
-                }
-               
-            });
+            watcher.StartWatch();
 
-            while(true)
-            {
-                Console.WriteLine("main");
-                Thread.Sleep(800);
-            }
+            Console.WriteLine("main");
 
-
+            Console.ReadKey();
         }
     }
 }

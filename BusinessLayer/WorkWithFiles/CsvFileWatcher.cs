@@ -39,11 +39,14 @@ namespace BusinessLayer.WorkWithFiles
             Console.WriteLine($"{args.FullPath} was {args.ChangeType}");
 
             var task = Task.Run(() =>
-           {
-               new FileHandler().StartHandle(args.FullPath, new CsvParser());
-               Console.WriteLine("watcherOnCreatted");
-               Thread.Sleep(1000);
-           });
+            {
+                Console.WriteLine("watcherOnCreatted" + Task.CurrentId);
+
+                new FileHandler().StartHandle(args.FullPath, new CsvParser());
+
+                Console.WriteLine("watcherOnCreatted" + Task.CurrentId + "finished");
+
+            });
 
         }
 
