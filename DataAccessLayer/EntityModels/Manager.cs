@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer.EntityModels
 {
@@ -18,12 +15,14 @@ namespace DataAccessLayer.EntityModels
 
         public Manager()
         {
-            Sales = new List<Sale>();
+          
         }
 
-        public Manager(string secondName):this()
+        public Manager(string secondName)
         {
-            SecondName = secondName;
+            SecondName = string.IsNullOrWhiteSpace(secondName)
+                ? throw new Exception("Invalid value of manager's name")
+                : secondName;
         }
 
     }

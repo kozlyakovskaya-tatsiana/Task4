@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
 namespace DataAccessLayer.EntityModels
@@ -35,17 +31,15 @@ namespace DataAccessLayer.EntityModels
 
         }
 
-        public Sale (Manager manager, Customer customer, Product product, DateTime dateTime, double sum)
+        public Sale (Manager manager, Customer customer, Product product, DateTime dateTime)
         {
-            Manager = manager;
-
-            Sum = sum;
+            Manager = manager ?? throw new ArgumentNullException(nameof(manager));
 
             DateTime = dateTime;
 
-            Customer = customer;
+            Customer = customer ?? throw new ArgumentNullException(nameof(customer)); 
 
-            Product = product;
+            Product = product ?? throw new ArgumentNullException(nameof(product)); 
         }
 
     }

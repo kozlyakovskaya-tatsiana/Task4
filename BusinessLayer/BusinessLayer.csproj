@@ -61,6 +61,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorkWithFiles\CsvFileWatcher.cs" />
     <Compile Include="WorkWithFiles\FileHandler.cs" />
+    <Compile Include="WorkWithFiles\MoverFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

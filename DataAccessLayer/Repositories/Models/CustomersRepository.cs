@@ -1,11 +1,8 @@
 ﻿using DataAccessLayer.ContextModels;
 using DataAccessLayer.EntityModels;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories.Models
 {
@@ -15,12 +12,13 @@ namespace DataAccessLayer.Repositories.Models
 
         public CustomersRepository(SalesDBContext context)
         {
-            _db = context;
+            _db = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public void Create(Customer item)
         {
-            _db.Customers.Add(item);
+            if (item != null)
+                _db.Customers.Add(item);
         }
 
         public IQueryable<Customer> GetAll()
@@ -38,6 +36,7 @@ namespace DataAccessLayer.Repositories.Models
             var customer = _db.Customers.Find(id);
 
             if (customer != null)
+
                 _db.Customers.Remove(customer);
         }
 
@@ -54,20 +53,23 @@ namespace DataAccessLayer.Repositories.Models
         public void Dispose()
         {
             _db.Dispose();
+
             GC.SuppressFinalize(this);
         }
 
-        public bool Exists(Customer item, out Customer resultItem)
+        public bool Exists(Customer item, out Customer existingItem)
         {
             var customers = _db.Customers.Where(customer => customer.FullName.Equals(item.FullName));
 
             if (customers.Count() != 0)
             {
-                resultItem = customers.FirstOrDefault();
+                existingItem = customers.FirstOrDefault();
+
                 return true;
             }
 
-            resultItem = item;
+            existingItem = null;
+
             return false;
         }
     }

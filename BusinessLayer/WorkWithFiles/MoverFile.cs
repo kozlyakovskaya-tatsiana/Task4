@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLayer
+namespace BusinessLayer.WorkWithFiles
 {
-    class Program
+    public class MoverFile
     {
-        static void Main(string[] args)
+        public MoverFile (string fileName, string pathToMove)
         {
             
         }

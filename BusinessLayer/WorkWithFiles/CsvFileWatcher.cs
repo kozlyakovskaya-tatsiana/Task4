@@ -1,10 +1,6 @@
 ﻿using BusinessLayer.Parsers.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace BusinessLayer.WorkWithFiles
@@ -38,15 +34,19 @@ namespace BusinessLayer.WorkWithFiles
         {
             Console.WriteLine($"{args.FullPath} was {args.ChangeType}");
 
-            var task = Task.Run(() =>
-            {
-                Console.WriteLine("watcherOnCreatted" + Task.CurrentId);
+            var handleFileTask = Task.Run(() =>
+             {
+                 Console.WriteLine("watcherOnCreatted" + Task.CurrentId);
 
-                new FileHandler().StartHandle(args.FullPath, new CsvParser());
+                 new FileHandler().StartHandle(args.FullPath, new CsvParser());
 
-                Console.WriteLine("watcherOnCreatted" + Task.CurrentId + "finished");
+                // var name = args.Name.Split('_')[0] + DateTime.Now.ToShortDateString() + ".txt";
 
-            });
+             new FileInfo(args.FullPath).MoveTo(@"E:\Универ\Epam\Task4\Files\ParsedFiles\" + Guid.NewGuid() + ".txt" );// args.Name + DateTime.Now.Date.TimeOfDay);
+
+                 Console.WriteLine("watcherOnCreatted" + Task.CurrentId + "finished");
+
+             });
 
         }
 

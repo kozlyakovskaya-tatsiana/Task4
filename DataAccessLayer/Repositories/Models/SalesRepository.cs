@@ -1,11 +1,8 @@
 ﻿using DataAccessLayer.ContextModels;
 using DataAccessLayer.EntityModels;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories.Models
 {
@@ -15,12 +12,14 @@ namespace DataAccessLayer.Repositories.Models
 
         public SalesRepository(SalesDBContext context)
         {
-            _db = context;
+            _db = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public void Create(Sale item)
         {
-            _db.Sales.Add(item);
+            if (item != null)
+
+                _db.Sales.Add(item);
         }
 
         public IQueryable<Sale> GetAll()
@@ -38,6 +37,7 @@ namespace DataAccessLayer.Repositories.Models
             var sale = _db.Sales.Find(id);
 
             if (sale != null)
+
                 _db.Sales.Remove(sale);
         }
 
@@ -54,6 +54,7 @@ namespace DataAccessLayer.Repositories.Models
         public void Dispose()
         {
             _db.Dispose();
+
             GC.SuppressFinalize(this);
         }
     }

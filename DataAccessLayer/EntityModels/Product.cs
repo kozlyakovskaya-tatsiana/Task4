@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
 namespace DataAccessLayer.EntityModels
@@ -18,14 +15,17 @@ namespace DataAccessLayer.EntityModels
 
         public virtual ICollection<Sale> Sales { get; set; }
 
-        public Product()
+       public Product()
         {
-            Sales = new List<Sale>();
+
         }
 
-        public Product (string name, double cost):this()
+        public Product(string name, double cost)
         {
-            Name = name;
+            Name = string.IsNullOrWhiteSpace(name)
+                ? throw new Exception("Invalid input of product's name")
+                : name;
+
             Cost = cost;
         }
     }

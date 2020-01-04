@@ -1,10 +1,8 @@
-﻿namespace DataAccessLayer.Migrations
-{
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
+﻿using System.Data.Entity.Migrations;
 
+namespace DataAccessLayer.Migrations
+{
+    
     internal sealed class Configuration : DbMigrationsConfiguration<DataAccessLayer.ContextModels.SalesDBContext>
     {
         public Configuration()

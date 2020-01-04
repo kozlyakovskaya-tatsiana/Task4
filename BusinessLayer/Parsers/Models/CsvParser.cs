@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
 
 namespace BusinessLayer.Parsers.Models
 {
@@ -12,6 +7,8 @@ namespace BusinessLayer.Parsers.Models
     {
         public IEnumerable<CsvLine> ParseFile(string fileName)
         {
+            if (!File.Exists(fileName)) throw new FileNotFoundException($"{fileName} is not found");
+
             var managerName = new FileInfo(fileName).Name.Split('_')[0];
 
             var listCsvLines = new List<CsvLine>();
@@ -27,7 +24,7 @@ namespace BusinessLayer.Parsers.Models
                     listCsvLines.Add(new CsvLine(managerName, dataInLine[0], dataInLine[1], dataInLine[2], dataInLine[3]));
                 }
             }
-         
+
             return listCsvLines;
         }
     }

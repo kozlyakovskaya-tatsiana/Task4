@@ -1,2 +1,2 @@
 25.12.2019;Tanya;Huawei;629,95
-25.12.2019;Maks;IPhone;899,95
+25.12.2019;Vova;Laptop;899,99

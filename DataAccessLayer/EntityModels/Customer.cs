@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer.EntityModels
 {
@@ -16,14 +13,16 @@ namespace DataAccessLayer.EntityModels
 
         public virtual ICollection<Sale> Sales { get; set; }
 
-        public Customer()
+       public Customer()
         {
-            Sales = new List<Sale>();
+          
         }
 
-        public Customer(string fullName):this()
+        public Customer(string fullName)
         {
-            FullName = fullName;
+            FullName = string.IsNullOrWhiteSpace(fullName)
+                ? throw new Exception("Invalid value of customer's name")
+                : fullName;
         }
 
     }

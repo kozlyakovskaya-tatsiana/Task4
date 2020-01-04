@@ -13,7 +13,7 @@ namespace ConsoleClient
     {
         static void Main(string[] args)
         {
-            var watcher = new CsvFileWatcher(ConfigurationManager.AppSettings.Get("pathToFilesDirectory"));
+            var watcher = new CsvFileWatcher(ConfigurationManager.AppSettings.Get("FilesToParseDirectory"));
 
             watcher.StartWatch();
 

@@ -1,35 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DataAccessLayer.EntityModels;
+using System;
 
 namespace BusinessLayer.Parsers.Models
 {
     public class CsvLine
     {
-        public string ManagerName { get; private set; }
+        public Manager Manager { get; private set; }
 
         public DateTime DateTime { get; private set; }
 
-        public string CustomerName { get; private set; }
+        public Customer Customer { get; private set; }
 
-        public string ProductName { get; private set; }
+        public Product Product { get; private set; } 
 
-        public double ProductSum { get; private set; }
-
-        public CsvLine(string managerName, string dateTime, string customer, string productName, string productSum)
+        public CsvLine(string managerName, string dateTime, string customerName, string productName, string productSum)
         {
-            ManagerName = managerName ?? throw new Exception("Invalid value of manager's name");
+            Manager = new Manager(managerName);
 
             DateTime = DateTime.Parse(dateTime);
 
-            CustomerName = customer ?? throw new Exception("Invalid value of customer's name");
+            Customer = new Customer(customerName);
 
-            ProductName = productName ?? throw new Exception("Invalid value of product's name");
-
-            ProductSum = double.Parse(productSum);
-
+            Product = new Product(productName, Convert.ToDouble(productSum));
         }
     }
 }
