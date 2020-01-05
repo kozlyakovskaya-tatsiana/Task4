@@ -71,6 +71,7 @@ namespace DataAccessLayer.Repositories.Models
         public void Dispose()
         {
             _db.Dispose();
+
             GC.SuppressFinalize(this);
         }
     }

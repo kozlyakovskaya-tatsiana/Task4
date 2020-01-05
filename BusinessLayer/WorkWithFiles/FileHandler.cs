@@ -3,6 +3,8 @@ using BusinessLayer.Parsers.Models;
 using DataAccessLayer.EntityModels;
 using DataAccessLayer.Repositories.Models;
 using System;
+using System.IO;
+using System.Linq;
 
 namespace BusinessLayer.WorkWithFiles
 {
@@ -10,14 +12,18 @@ namespace BusinessLayer.WorkWithFiles
     {
         private static object locker = new object();
 
-        public void StartHandle(string fileName, IParser<CsvLine> parser)
+        public void StartHandle(string pathToFile, IParser<CsvLine> parser)
         {
-            var lines = parser.ParseFile(fileName);
+            var lines = parser.ParseFile(pathToFile);
 
             foreach (var line in lines)
             {
                 SaveData(line.Manager, line.Product, line.Customer, line.DateTime);
             }
+
+            var shortFileName = pathToFile.ToString().Split('\\').LastOrDefault();
+
+            new FileInfo(pathToFile).MoveTo(@"E:\Универ\Epam\Task4\Files\ParsedFiles\" + DateTime.Now.ToString("dd.MM.yyyy HH-mm-ss") + shortFileName);
 
         }
 

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.WorkWithFiles
 {
-    public class CsvFileWatcher
+    public class CsvFileWatcher : IDisposable
     {
         private readonly FileSystemWatcher _fileSystemWatcher;
 
@@ -28,23 +28,27 @@ namespace BusinessLayer.WorkWithFiles
             _fileSystemWatcher.Created -= OnCreatedExecute;
 
             _fileSystemWatcher.EnableRaisingEvents = false;
+
+        }
+
+        public void Dispose()
+        {
+            _fileSystemWatcher.Dispose();
+
+            GC.SuppressFinalize(this);
         }
 
         public void OnCreatedExecute(object sender, FileSystemEventArgs args)
         {
-            Console.WriteLine($"{args.FullPath} was {args.ChangeType}");
+            Console.WriteLine($"{args.Name} was {args.ChangeType}");
 
             var handleFileTask = Task.Run(() =>
              {
-                 Console.WriteLine("watcherOnCreatted" + Task.CurrentId);
+                 Console.WriteLine($"{args.Name} is handled");
 
                  new FileHandler().StartHandle(args.FullPath, new CsvParser());
 
-                // var name = args.Name.Split('_')[0] + DateTime.Now.ToShortDateString() + ".txt";
-
-             new FileInfo(args.FullPath).MoveTo(@"E:\Универ\Epam\Task4\Files\ParsedFiles\" + Guid.NewGuid() + ".txt" );// args.Name + DateTime.Now.Date.TimeOfDay);
-
-                 Console.WriteLine("watcherOnCreatted" + Task.CurrentId + "finished");
+                 Console.WriteLine($"{args.Name} was successfully handled");
 
              });
 
