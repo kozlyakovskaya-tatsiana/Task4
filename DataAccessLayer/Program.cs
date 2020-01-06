@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccessLayer.Repositories.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace DataAccessLayer
     {
         static void Main(string[] args)
         {
-
+           
         }
     }
 }

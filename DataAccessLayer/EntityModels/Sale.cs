@@ -33,13 +33,13 @@ namespace DataAccessLayer.EntityModels
 
         public Sale (Manager manager, Customer customer, Product product, DateTime dateTime)
         {
-            Manager = manager ?? throw new ArgumentNullException(nameof(manager));
+            Manager = manager; 
 
             DateTime = dateTime;
 
-            Customer = customer ?? throw new ArgumentNullException(nameof(customer)); 
+            Customer = customer; 
 
-            Product = product ?? throw new ArgumentNullException(nameof(product)); 
+            Product = product;
         }
 
     }

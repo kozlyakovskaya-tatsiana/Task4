@@ -35,12 +35,12 @@ namespace ConsoleClient
 
         }
 
-        private static void HandleExistingFiles(string directory)
+        private static void HandleExistingFiles(string pathToDirectory)
         {
-            if (!Directory.Exists(directory))
+            if (!Directory.Exists(pathToDirectory))
                 return;
 
-            var files = Directory.GetFiles(directory);
+            var files = Directory.GetFiles(pathToDirectory);
 
             foreach (var file in files)
             {
@@ -48,8 +48,6 @@ namespace ConsoleClient
                 {
 
                     new FileHandler().StartHandle(file, new CsvParser());
-
-                    var shortFileName = file.ToString().Split('\\').LastOrDefault();
 
                     Console.WriteLine($"{file} was successfully handled");
 

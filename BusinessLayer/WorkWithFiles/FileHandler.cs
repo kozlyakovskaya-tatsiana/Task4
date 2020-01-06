@@ -14,9 +14,9 @@ namespace BusinessLayer.WorkWithFiles
 
         public void StartHandle(string pathToFile, IParser<CsvLine> parser)
         {
-            var lines = parser.ParseFile(pathToFile);
+            var csvLines = parser.ParseFile(pathToFile);
 
-            foreach (var line in lines)
+            foreach (var line in csvLines)
             {
                 SaveData(line.Manager, line.Product, line.Customer, line.DateTime);
             }
