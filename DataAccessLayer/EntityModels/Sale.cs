@@ -11,7 +11,7 @@ namespace DataAccessLayer.EntityModels
         public double Sum { get; set; }
 
         [Required]
-        public DateTime DateTime { get; set; }
+        public DateTime Date { get; set; }
 
         public int? ManagerId { get; set; }
 
@@ -31,15 +31,17 @@ namespace DataAccessLayer.EntityModels
 
         }
 
-        public Sale (Manager manager, Customer customer, Product product, DateTime dateTime)
+        public Sale(Manager manager, Customer customer, Product product, DateTime dateTime)
         {
-            Manager = manager; 
+            Manager = manager;
 
-            DateTime = dateTime;
+            Date = dateTime;
 
-            Customer = customer; 
+            Customer = customer;
 
             Product = product;
+
+            Sum = Product.Cost;
         }
 
     }

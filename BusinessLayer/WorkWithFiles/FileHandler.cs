@@ -14,46 +14,76 @@ namespace BusinessLayer.WorkWithFiles
 
         public void StartHandle(string pathToFile, IParser<CsvLine> parser)
         {
-            var csvLines = parser.ParseFile(pathToFile);
-
-            foreach (var line in csvLines)
+            try
             {
-                SaveData(line.Manager, line.Product, line.Customer, line.DateTime);
+                var csvLines = parser.ParseFile(pathToFile);
+
+                if (csvLines == null)
+                    return;
+
+                foreach (var line in csvLines)
+                {
+                    try
+                    {
+                        SaveData(line);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Write($"{line} was not saved to databes because " + ex.Message);
+                    }
+                }
+
+                try
+                {
+                    var fileName = Path.GetFileName(pathToFile);
+
+                    var pathToDirectory = Path.GetDirectoryName(pathToFile);
+
+                    new FileInfo(pathToFile).MoveTo(Path.Combine(pathToDirectory, "Parsed" + DateTime.Now.ToString("dd.MM.yyyy HH-mm-ss") + fileName));
+                }
+                catch(Exception ex)
+                {
+                    Log.Write("File wasn't renamed because " + ex.Message);
+                }
+                
             }
 
-            var shortFileName = pathToFile.ToString().Split('\\').LastOrDefault();
-
-            new FileInfo(pathToFile).MoveTo(@"E:\Универ\Epam\Task4\Files\ParsedFiles\" + DateTime.Now.ToString("dd.MM.yyyy HH-mm-ss") + shortFileName);
-
+            catch (Exception ex)
+            {
+                Log.Write(ex.Message);
+            }
         }
 
-        private void SaveData(Manager manager, Product product, Customer customer, DateTime date)
+        private void SaveData(CsvLine csvLine)
         {
+
+            if (csvLine == null)
+                return;
+
+            var managerName = csvLine.ManagerName;
+
+            var productName = csvLine.ProductName;
+
+            var productCost = csvLine.ProductCost;
+
+            var customerName = csvLine.CustomerName;
+
+            var date = csvLine.Date;
+
             lock (locker)
             {
                 using (var unitOfWork = new UnitOfWork())
                 {
+                    var manager = unitOfWork.ManagersRepository.GetAll().FirstOrDefault(man => man.Name == managerName) ?? new Manager(managerName);
 
-                    unitOfWork.ManagersRepository.Exists(manager, out var resultManager);
+                    var product = unitOfWork.ProductsRepository.GetAll().FirstOrDefault(prod => prod.Name == productName && prod.Cost == productCost) ?? new Product(productName, productCost);
 
-                    unitOfWork.ProductsRepository.Exists(product, out var resultProduct);
+                    var customer = unitOfWork.CustomersRepository.GetAll().FirstOrDefault(cust => cust.FullName == customerName) ?? new Customer(customerName);
 
-                    unitOfWork.CustomersRepository.Exists(customer, out var resultCustomer);
-
-                    unitOfWork.SalesRepository.Create(new Sale
-                    {
-                        Manager = resultManager ?? manager,
-
-                        Customer = resultCustomer ?? customer,
-
-                        Product = resultProduct ?? product,
-
-                        DateTime = date,
-
-                        Sum = resultProduct?.Cost ?? product.Cost
-                    });
+                    unitOfWork.SalesRepository.Create(new Sale(manager, customer, product, date));
 
                     unitOfWork.Save();
+
                 }
             }
         }

@@ -7,7 +7,7 @@ namespace DataAccessLayer.ContextModels
     {
         public SalesDBContext() : base("DBConnection")
         {
-            
+           
         }
 
         public DbSet<Manager> Managers { get; set; }

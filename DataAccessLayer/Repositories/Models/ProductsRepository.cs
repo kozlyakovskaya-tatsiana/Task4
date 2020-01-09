@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace DataAccessLayer.Repositories.Models
 {
-    public class ProductsRepository : IRepository<Product>, IExistable<Product>, IDisposable
+    public class ProductsRepository : IRepository<Product>, IDisposable
     {
         private SalesDBContext _db;
 
@@ -18,7 +18,6 @@ namespace DataAccessLayer.Repositories.Models
         public void Create(Product item)
         {
             if (item != null)
-
                 _db.Products.Add(item);
         }
 
@@ -37,7 +36,6 @@ namespace DataAccessLayer.Repositories.Models
             var product = _db.Products.Find(id);
 
             if (product != null)
-
                 _db.Products.Remove(product);
         }
 
@@ -46,33 +44,15 @@ namespace DataAccessLayer.Repositories.Models
             _db.Entry(item).State = EntityState.Modified;
         }
 
-        /* public void Save()
+        public void Save()
          {
              _db.SaveChanges();
-         }*/
+         }
 
         public void Dispose()
         {
             _db.Dispose();
-
-            GC.SuppressFinalize(this);
         }
 
-        public bool Exists(Product item, out Product resultItem)
-        {
-
-            var products = _db.Products.Where(product => product.Name.Equals(item.Name) && product.Cost == item.Cost);
-
-            if (products.Count() != 0)
-            {
-                resultItem = products.FirstOrDefault();
-
-                return true;
-            }
-
-            resultItem = null;
-
-            return false;
-        }
     }
 }

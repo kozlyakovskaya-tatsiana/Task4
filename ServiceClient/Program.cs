@@ -5,7 +5,7 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FileWatcherService
+namespace ServiceClient
 {
     static class Program
     {

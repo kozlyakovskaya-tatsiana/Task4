@@ -58,14 +58,13 @@
     <Compile Include="EntityModels\Manager.cs" />
     <Compile Include="EntityModels\Product.cs" />
     <Compile Include="EntityModels\Sale.cs" />
-    <Compile Include="Migrations\201912251447132_Initial.cs" />
-    <Compile Include="Migrations\201912251447132_Initial.designer.cs">
-      <DependentUpon>201912251447132_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\202001091531164_Initial.cs" />
+    <Compile Include="Migrations\202001091531164_Initial.designer.cs">
+      <DependentUpon>202001091531164_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\IExistable.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\Models\CustomersRepository.cs" />
     <Compile Include="Repositories\Models\ManagersRepository.cs" />
@@ -78,8 +77,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201912251447132_Initial.resx">
-      <DependentUpon>201912251447132_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202001091531164_Initial.resx">
+      <DependentUpon>202001091531164_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

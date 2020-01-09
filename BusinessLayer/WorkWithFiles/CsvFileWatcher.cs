@@ -9,11 +9,16 @@ namespace BusinessLayer.WorkWithFiles
     {
         private readonly FileSystemWatcher _fileSystemWatcher;
 
+        public event EventHandler<string> StartHadleFileEvent;
+
+        public event EventHandler<string> EndHadleFileEvent;
+
         public CsvFileWatcher(string directoryPath)
         {
             _fileSystemWatcher = new FileSystemWatcher(directoryPath);
 
             _fileSystemWatcher.Filter = "*.txt";
+
         }
 
         public void StartWatch()
@@ -21,6 +26,7 @@ namespace BusinessLayer.WorkWithFiles
             _fileSystemWatcher.Created += OnCreatedExecute;
 
             _fileSystemWatcher.EnableRaisingEvents = true;
+
         }
 
         public void StopWatch()
@@ -34,26 +40,21 @@ namespace BusinessLayer.WorkWithFiles
         public void Dispose()
         {
             _fileSystemWatcher.Dispose();
-
-            GC.SuppressFinalize(this);
         }
 
         public void OnCreatedExecute(object sender, FileSystemEventArgs args)
         {
-            Console.WriteLine($"{args.Name} was {args.ChangeType}");
-
             var handleFileTask = Task.Run(() =>
              {
-                 Console.WriteLine($"{args.Name} is handled");
+                 StartHadleFileEvent?.Invoke(this, args.Name);
 
                  new FileHandler().StartHandle(args.FullPath, new CsvParser());
 
-                 Console.WriteLine($"{args.Name} was successfully handled");
+                 EndHadleFileEvent?.Invoke(this, args.Name);
 
              });
 
         }
-
 
     }
 }

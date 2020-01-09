@@ -1,4 +1,4 @@
-﻿namespace FileWatcherService
+﻿namespace ServiceClient
 {
     partial class Installer1
     {

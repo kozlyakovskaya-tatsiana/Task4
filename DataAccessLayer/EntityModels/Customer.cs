@@ -13,9 +13,9 @@ namespace DataAccessLayer.EntityModels
 
         public virtual ICollection<Sale> Sales { get; set; }
 
-       public Customer()
+        public Customer()
         {
-          
+
         }
 
         public Customer(string fullName)

@@ -1,0 +1,5 @@
+09.01.2020 22:14:25 Service works
+09.01.2020 22:14:25 Watcher is working
+09.01.2020 22:14:28 Watcher is working
+09.01.2020 22:14:31 Watcher is working
+09.01.2020 22:14:32 Service stoped

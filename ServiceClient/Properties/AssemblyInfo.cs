@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FileWatcherService")]
+[assembly: AssemblyTitle("ServiceClient")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("FileWatcherService")]
+[assembly: AssemblyProduct("ServiceClient")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("e2bf1e80-86bc-42a4-acb2-14f49d4d154c")]
+[assembly: Guid("355eb761-fa88-4cf7-a7e3-9fe9f7b73084")]
 
 // Version information for an assembly consists of the following four values:
 //

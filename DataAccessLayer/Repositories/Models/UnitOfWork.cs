@@ -1,9 +1,5 @@
 ﻿using DataAccessLayer.ContextModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories.Models
 {
@@ -71,8 +67,6 @@ namespace DataAccessLayer.Repositories.Models
         public void Dispose()
         {
             _db.Dispose();
-
-            GC.SuppressFinalize(this);
         }
     }
 }

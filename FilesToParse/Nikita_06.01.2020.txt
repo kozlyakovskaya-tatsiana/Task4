@@ -1,0 +1,2 @@
+06.01.2020;Tanya;Huawei;629,95
+06.01.2020;Pasha;Computer;780,32

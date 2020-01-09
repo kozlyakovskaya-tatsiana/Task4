@@ -1,13 +1,7 @@
 ﻿using BusinessLayer.WorkWithFiles;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Configuration;
 using System.Threading;
-using System.IO;
-using BusinessLayer.Parsers.Models;
 
 namespace ConsoleClient
 {
@@ -15,45 +9,38 @@ namespace ConsoleClient
     {
         static void Main(string[] args)
         {
-            var watchingDirectory = ConfigurationManager.AppSettings.Get("FilesToParseDirectory");
-
-            var handleExistingFiles = Task.Run(() => HandleExistingFiles(watchingDirectory));
-
-            using (var watcher = new CsvFileWatcher(watchingDirectory))
+            try
             {
-                watcher.StartWatch();
+                var watchingDirectory = ConfigurationManager.AppSettings.Get("FilesToParseDirectory");
 
-                while (true)
+                using (var watcher = new CsvFileWatcher(watchingDirectory))
                 {
-                    Console.WriteLine("main");
+                    watcher.StartHadleFileEvent += (obj, file) => Console.WriteLine($"Start handle {file}");
 
-                    Thread.Sleep(5000);
+                    watcher.EndHadleFileEvent += (obj, file) => Console.WriteLine($"Finish handle {file}");
+
+                    watcher.StartWatch();
+
+                    while (true)
+                    {
+                        Console.WriteLine("Watcher is working");
+
+                        Thread.Sleep(3000);
+                    }
+
                 }
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                Console.WriteLine("Press any key to finish");
 
                 Console.ReadKey();
             }
 
         }
 
-        private static void HandleExistingFiles(string pathToDirectory)
-        {
-            if (!Directory.Exists(pathToDirectory))
-                return;
-
-            var files = Directory.GetFiles(pathToDirectory);
-
-            foreach (var file in files)
-            {
-                var handleFileTask = Task.Run(() =>
-                {
-
-                    new FileHandler().StartHandle(file, new CsvParser());
-
-                    Console.WriteLine($"{file} was successfully handled");
-
-                });
-
-            }
-        }
     }
 }

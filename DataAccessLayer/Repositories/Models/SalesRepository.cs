@@ -18,7 +18,6 @@ namespace DataAccessLayer.Repositories.Models
         public void Create(Sale item)
         {
             if (item != null)
-
                 _db.Sales.Add(item);
         }
 
@@ -37,7 +36,6 @@ namespace DataAccessLayer.Repositories.Models
             var sale = _db.Sales.Find(id);
 
             if (sale != null)
-
                 _db.Sales.Remove(sale);
         }
 
@@ -46,16 +44,14 @@ namespace DataAccessLayer.Repositories.Models
             _db.Entry(item).State = EntityState.Modified;
         }
 
-        /* public void Save()
-         {
-             _db.SaveChanges();
-         }*/
+        public void Save()
+        {
+            _db.SaveChanges();
+        }
 
         public void Dispose()
         {
             _db.Dispose();
-
-            GC.SuppressFinalize(this);
         }
     }
 }

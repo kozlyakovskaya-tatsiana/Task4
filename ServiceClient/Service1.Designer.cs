@@ -1,4 +1,4 @@
-﻿namespace FileWatcherService
+﻿namespace ServiceClient
 {
     partial class Service1
     {
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            this.ServiceName = "MyFileWatcherService";
+            this.ServiceName = "CsvFileWatcherService";
         }
 
         #endregion

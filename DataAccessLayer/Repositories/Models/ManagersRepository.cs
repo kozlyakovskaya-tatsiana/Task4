@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace DataAccessLayer.Repositories.Models
 {
-    public class ManagersRepository : IRepository<Manager>, IExistable<Manager>, IDisposable
+    public class ManagersRepository : IRepository<Manager>, IDisposable
     {
         private SalesDBContext _db;
 
@@ -18,7 +18,6 @@ namespace DataAccessLayer.Repositories.Models
         public void Create(Manager item)
         {
             if (item != null)
-
                 _db.Managers.Add(item);
         }
 
@@ -37,7 +36,6 @@ namespace DataAccessLayer.Repositories.Models
             var manager = _db.Managers.Find(id);
 
             if (manager != null)
-
                 _db.Managers.Remove(manager);
         }
 
@@ -46,32 +44,15 @@ namespace DataAccessLayer.Repositories.Models
             _db.Entry(item).State = EntityState.Modified;
         }
 
-        public bool Exists(Manager item, out Manager resultItem)
+        public void Save()
         {
-            var managers = _db.Managers.Where(manager => manager.SecondName.Equals(item.SecondName));
-
-            if (managers.Count() != 0)
-            {
-                resultItem = managers.FirstOrDefault();
-
-                return true;
-            }
-
-            resultItem = null;
-
-            return false;
+            _db.SaveChanges();
         }
-
-        /* public void Save()
-         {
-             db.SaveChanges();
-         }*/
 
         public void Dispose()
         {
             _db.Dispose();
 
-            GC.SuppressFinalize(this);
         }
 
 

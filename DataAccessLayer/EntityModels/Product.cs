@@ -15,7 +15,7 @@ namespace DataAccessLayer.EntityModels
 
         public virtual ICollection<Sale> Sales { get; set; }
 
-       public Product()
+        public Product()
         {
 
         }

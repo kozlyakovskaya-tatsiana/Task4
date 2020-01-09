@@ -1,27 +1,35 @@
-﻿using DataAccessLayer.EntityModels;
-using System;
+﻿using System;
 
 namespace BusinessLayer.Parsers.Models
 {
     public class CsvLine
     {
-        public Manager Manager { get; private set; }
+        public string ManagerName { get; private set; }
 
-        public DateTime DateTime { get; private set; }
+        public DateTime Date { get; private set; }
 
-        public Customer Customer { get; private set; }
+        public string CustomerName { get; private set; }
 
-        public Product Product { get; private set; } 
+        public string ProductName { get; private set; } 
 
-        public CsvLine(string managerName, string dateTime, string customerName, string productName, string productSum)
+        public double ProductCost { get; private set; }
+
+        public CsvLine(string managerName, string date, string customerName, string productName, string productCost)
         {
-            Manager = new Manager(managerName);
+            ManagerName = managerName;
 
-            DateTime = DateTime.Parse(dateTime);
+            Date = DateTime.Parse(date);
 
-            Customer = new Customer(customerName);
+            CustomerName = customerName;
 
-            Product = new Product(productName, Convert.ToDouble(productSum));
+            ProductName = productName;
+
+            ProductCost = Convert.ToDouble(productCost);
+        }
+
+        public override string ToString()
+        {
+            return $"{ManagerName} {Date} {CustomerName} {ProductName} {ProductCost}";
         }
     }
 }

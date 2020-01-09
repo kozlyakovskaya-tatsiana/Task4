@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace DataAccessLayer.Repositories.Models
 {
-    public class CustomersRepository : IRepository<Customer>, IExistable<Customer>, IDisposable
+    public class CustomersRepository : IRepository<Customer>, IDisposable
     {
         private SalesDBContext _db;
 
@@ -36,7 +36,6 @@ namespace DataAccessLayer.Repositories.Models
             var customer = _db.Customers.Find(id);
 
             if (customer != null)
-
                 _db.Customers.Remove(customer);
         }
 
@@ -45,32 +44,15 @@ namespace DataAccessLayer.Repositories.Models
             _db.Entry(item).State = EntityState.Modified;
         }
 
-        /*  public void Save()
-          {
-              db.SaveChanges();
-          }*/
+        public void Save()
+        {
+            _db.SaveChanges();
+        }
 
         public void Dispose()
         {
             _db.Dispose();
-
-            GC.SuppressFinalize(this);
         }
 
-        public bool Exists(Customer item, out Customer existingItem)
-        {
-            var customers = _db.Customers.Where(customer => customer.FullName.Equals(item.FullName));
-
-            if (customers.Count() != 0)
-            {
-                existingItem = customers.FirstOrDefault();
-
-                return true;
-            }
-
-            existingItem = null;
-
-            return false;
-        }
     }
 }

@@ -1,7 +1,8 @@
-﻿using System.Data.Entity.Migrations;
+﻿using System;
+using System.Data.Entity.Migrations;
 
 namespace DataAccessLayer.Migrations
-{
+{    
     public partial class Initial : DbMigration
     {
         public override void Up()
@@ -21,7 +22,7 @@ namespace DataAccessLayer.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Sum = c.Double(nullable: false),
-                        dateTime = c.DateTime(nullable: false),
+                        Date = c.DateTime(nullable: false),
                         ManagerId = c.Int(),
                         CustomerId = c.Int(),
                         ProductId = c.Int(),
@@ -39,7 +40,7 @@ namespace DataAccessLayer.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        SecondName = c.String(nullable: false),
+                        Name = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             

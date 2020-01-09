@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Log.cs" />
     <Compile Include="Parsers\IParser.cs" />
     <Compile Include="Parsers\Models\CsvLine.cs" />
     <Compile Include="Parsers\Models\CsvParser.cs" />
